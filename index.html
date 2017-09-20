@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="testApp">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+<body>
+<div ng-controller="TestController">
+	<div class="container">
+		<h3 class="text-center"><strong>Posts List</strong></h3>
+		<table class="table table-condensed table-bordered table-striped table-responsive">
+			<thead>
+				<th>User ID</th>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Body</th>
+				<th>Detalle</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="post in list.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))">
+					<td>{{post.userId}}</td>
+					<td>{{post.id}}</td>
+					<td>{{post.title}}</td>
+					<td>{{post.body}}</td>
+					<td><a href="#" ng-click="Comments(post.id)">Comments</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-center">
+			<ul uib-pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+		</div>
+	</div>
+
+	<div class="container">
+		<h3 class="text-center"><strong>Comments (Click Comments in table)</strong></h3>
+		<uib-accordion close-others="oneAtATime" ng-repeat="comment in comments">
+		    <div uib-accordion-group class="panel-default" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+		    	<uib-accordion-heading>{{comment.email}}</uib-accordion-heading>
+		      <h4><strong>{{comment.name}}</strong></h4>
+		      <p>{{comment.body}}</p>
+		    </div>
+		</uib-accordion>
+	</div>
+</div>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script type="text/javascript" src="js/controllers/test.js"></script>
+</body>
+</html>
